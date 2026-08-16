@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Um convite ❤️</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffd6e7, #fff1f6);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  .card {
+    width: min(90vw, 430px);
+    min-height: 300px;
+    padding: 45px 25px;
+    background: rgba(255,255,255,.94);
+    border-radius: 25px;
+    box-shadow: 0 15px 45px rgba(150, 50, 90, .18);
+    text-align: center;
+    position: relative;
+  }
+
+  .heart {
+    font-size: 48px;
+    margin-bottom: 15px;
+    animation: pulse 1.2s infinite;
+  }
+
+  h1 {
+    margin: 0 0 35px;
+    color: #d6336c;
+    font-size: clamp(25px, 7vw, 36px);
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    align-items: center;
+  }
+
+  button {
+    border: none;
+    border-radius: 12px;
+    padding: 13px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(0,0,0,.12);
+  }
+
+  #sim {
+    background: #2fb344;
+    color: white;
+  }
+
+  #nao {
+    background: #fa5252;
+    color: white;
+    position: fixed;
+    z-index: 10;
+    transition: left .15s ease, top .15s ease;
+  }
+
+  #mensagem {
+    display: none;
+    margin-top: 25px;
+    color: #d6336c;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  @keyframes pulse {
+    50% { transform: scale(1.15); }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="heart">❤️</div>
+  <h1>Você quer sair comigo?</h1>
+
+  <div class="buttons">
+    <button id="sim">SIM 😍</button>
+    <button id="nao">NÃO</button>
+  </div>
+
+  <div id="mensagem">Eu sabia! 😍❤️<br>Então está combinado!</div>
+</div>
+
+<script>
+const nao = document.getElementById("nao");
+const sim = document.getElementById("sim");
+const mensagem = document.getElementById("mensagem");
+
+function fugir() {
+  const margem = 15;
+  const largura = nao.offsetWidth;
+  const altura = nao.offsetHeight;
+
+  const maxX = window.innerWidth - largura - margem;
+  const maxY = window.innerHeight - altura - margem;
+
+  const x = Math.max(margem, Math.random() * maxX);
+  const y = Math.max(margem, Math.random() * maxY);
+
+  nao.style.left = x + "px";
+  nao.style.top = y + "px";
+}
+
+// Funciona ao tentar clicar/tocar no "NÃO"
+nao.addEventListener("mouseenter", fugir);
+nao.addEventListener("touchstart", function(e) {
+  e.preventDefault();
+  fugir();
+});
+nao.addEventListener("click", fugir);
+
+sim.addEventListener("click", () => {
+  mensagem.style.display = "block";
+  nao.style.display = "none";
+  sim.textContent = "SIM! ❤️";
+});
+</script>
+
+</body>
+</html>
